@@ -1,0 +1,24 @@
+const int ldrPin = A0;   // Changed 'ΑΘ' to 'A0' (Analog pin 0)
+const int ledPin = 13;   // Internal LED
+int threshold = 500;     // Sensitivity threshold
+
+void setup() {
+  pinMode(ledPin, OUTPUT);
+  Serial.begin(9600);    // Start serial monitor
+}
+
+void loop() {            // Added missing opening brace
+  int ldrStatus = analogRead(ldrPin); // Reads 0 to 1023
+
+  // Use '<' for comparison. If light drops below threshold, it's dark.
+  if (ldrStatus < threshold) {
+    digitalWrite(ledPin, HIGH); 
+    Serial.print("It's DARK: ");
+  } else {
+    digitalWrite(ledPin, LOW);
+    Serial.print("It's BRIGHT: ");
+  }
+
+  Serial.println(ldrStatus); // Print the value regardless of status
+  delay(100);
+}                        // Added missing closing brace
